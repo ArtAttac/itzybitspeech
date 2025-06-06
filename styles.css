@@ -238,7 +238,8 @@ body {
 }
 
 .support-item i {
-    color: #27ae60;
+    color: #FFEBCD;
+    background-color: #191970;
     font-size: 1.2rem;
     min-width: 20px;
 }
