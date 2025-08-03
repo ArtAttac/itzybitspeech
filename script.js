@@ -31,6 +31,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+//     document.addEventListener('DOMContentLoaded', function() {
+//     const navBrand = document.querySelector('.nav-brand');
+//     const spider = document.querySelector('.spider-icon');
+//     let spiderCooldown = false;
+    
+//     navBrand.addEventListener('mouseenter', function() {
+//         if (!spiderCooldown) {
+//             // Trigger animation
+//             spider.classList.add('dropping');
+//             spiderCooldown = true;
+            
+//             // Set cooldown period (3 seconds)
+//             setTimeout(() => {
+//                 spiderCooldown = false;
+//                 spider.classList.remove('dropping');
+//             }, 3000);
+//         }
+//     });
+// });
+
     // Smooth scroll with offset for fixed header
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -143,27 +163,57 @@ ${formObject['concerns'] || 'No specific concerns mentioned.'}
         });
     });
 
-    const faqItems = document.querySelectorAll('.faq-item');
+// Replace your existing FAQ JavaScript with this updated version
 
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
+// FAQ Accordion functionality
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    
+    question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
         
-        question.addEventListener('click', () => {
-            const isOpen = item.classList.contains('active');
+        // If we're opening this item, adjust scroll position for better visibility
+        if (!isOpen) {
+            // Give a tiny delay to allow the CSS transition to start
+            setTimeout(() => {
+                // Only scroll if the item isn't fully visible
+                const rect = item.getBoundingClientRect();
+                const isFullyVisible = (
+                    rect.top >= 0 &&
+                    rect.bottom <= window.innerHeight
+                );
+                
+                if (!isFullyVisible) {
+                    const headerHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = item.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 50);
+        }
 
-            // Close all other items for a cleaner experience
-            faqItems.forEach(otherItem => {
+        // Toggle the active state
+        faqItems.forEach(otherItem => {
+            if (otherItem !== item) {
                 otherItem.classList.remove('active');
                 otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-            });
-
-            // If the clicked item wasn't already open, open it
-            if (!isOpen) {
-                item.classList.add('active');
-                question.setAttribute('aria-expanded', 'true');
             }
         });
+
+        if (isOpen) {
+            item.classList.remove('active');
+            question.setAttribute('aria-expanded', 'false');
+        } else {
+            item.classList.add('active');
+            question.setAttribute('aria-expanded', 'true');
+        }
     });
+});
     // Add entrance animations for cards when they come into view
     const observerOptions = {
         threshold: 0.1,

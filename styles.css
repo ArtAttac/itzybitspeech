@@ -36,6 +36,18 @@ body {
     align-items: center;
 }
 
+.hero-text {
+    display: flex; align-items: center; gap: 2rem; margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .hero-text{
+        flex-direction: column;
+    }
+    
+}
+
+
 .nav-brand h2 {
     color: #e67e22;
     font-weight: 600;
@@ -463,60 +475,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* FAQ Section */
-.faq {
-    padding: 80px 0;
-    background: white;
-}
-
-.faq h2 {
-    text-align: center;
-    font-size: 2.2rem;
-    color: #2c3e50;
-    margin-bottom: 3rem;
-    font-weight: 600;
-}
-
-.faq-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-}
-
-.faq-item {
-    background: #f8f9fa;
-    padding: 2rem;
-    border-radius: 15px;
-    border-left: 4px solid #e67e22;
-    transition: all 0.3s ease;
-}
-
-.faq-item:hover {
-    background: #e67e22;
-    color: white;
-    transform: translateX(5px);
-}
-
-.faq-item h3 {
-    font-size: 1.2rem;
-    color: #2c3e50;
-    margin-bottom: 1rem;
-    font-weight: 600;
-}
-
-.faq-item:hover h3 {
-    color: white;
-}
-
-.faq-item p {
-    color: #666;
-    line-height: 1.7;
-}
-
-.faq-item:hover p {
-    color: white;
-}
-
 /* Contact Section */
 .contact {
     padding: 80px 0;
@@ -860,9 +818,12 @@ html {
 }
 
 /* FAQ Section */
+/* Replace the existing FAQ section CSS with this modernized version */
+
+/* FAQ Section */
 .faq {
     padding: 80px 0;
-    background: #fff9f2; /* A very light, warm peach background */
+    background: linear-gradient(135deg, #fff9f2 0%, #ffe8e0 100%);
 }
 
 .faq h2 {
@@ -871,23 +832,44 @@ html {
     color: #2c3e50;
     margin-bottom: 3rem;
     font-weight: 600;
+    position: relative;
+    padding-bottom: 1rem;
 }
 
-.faq-accordion {
-    max-width: 800px;
+.faq h2:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #e67e22, #f39c12);
+    border-radius: 3px;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
     margin: 0 auto;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
 
 .faq-item {
     background: white;
-    border-bottom: 1px solid #f0e5d9;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    height: fit-content;
+    border-left: 3px solid transparent;
 }
 
-.faq-item:last-child {
-    border-bottom: none;
+.faq-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-left: 3px solid #e67e22;
 }
 
 .faq-question {
@@ -904,25 +886,38 @@ html {
     font-size: 1.1rem;
     font-weight: 500;
     color: #2c3e50;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .faq-question:hover {
-    background-color: #fff6ec;
+    color: #e67e22;
 }
 
 .faq-question i {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    width: 24px;
+    height: 24px;
+    background: #f8f9fa;
     color: #e67e22;
-    transition: transform 0.3s ease;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
     flex-shrink: 0;
     margin-left: 1rem;
 }
 
+/* .faq-question:hover i {
+    background: #e67e22;
+    color: white;
+} */
+
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-out;
+    transition: all 0.4s ease-out;
+    opacity: 0;
 }
 
 .faq-answer p {
@@ -930,9 +925,15 @@ html {
     color: #666;
     line-height: 1.7;
     margin: 0;
+    font-size: 1rem;
 }
 
 /* Active state for the accordion item */
+.faq-item.active {
+    border-left: 3px solid #e67e22;
+    background: linear-gradient(to right, rgba(255, 249, 242, 0.5), white);
+}
+
 .faq-item.active .faq-question {
     font-weight: 600;
     color: #e67e22;
@@ -940,8 +941,113 @@ html {
 
 .faq-item.active .faq-question i {
     transform: rotate(45deg); /* Rotates the plus into a cross */
+    background: #e67e22;
+    color: white;
 }
 
 .faq-item.active .faq-answer {
-    max-height: 300px; /* Adjust if answers are longer */
+    max-height: 500px; /* Adjust if answers are longer */
+    opacity: 1;
 }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .faq-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .faq-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+    .faq-grid {
+        gap: 1rem;
+    }
+    
+    .faq-question {
+        padding: 1.2rem;
+        font-size: 1rem;
+    }
+    
+    .faq-answer p {
+        padding: 0 1.2rem 1.2rem;
+        font-size: 0.95rem;
+    }
+}
+
+
+.hero-photo {
+    border-radius: 100px;
+    transform:scaleX(-1);
+}
+
+
+
+
+/* 
+.nav-brand {
+    position: relative;
+}
+
+.spider-container {
+    position: absolute;
+    top: 30px;
+    left: 5px;
+    height: 30px;
+    overflow: visible;
+}
+
+.spider-icon {
+    position: absolute;
+    font-size: 16px;
+    color: #333;
+    animation: spiderSwing 4s ease-in-out infinite;
+    transform-origin: top center;
+}
+
+/* Spider thread */
+/* .spider-container::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    height: 30px;
+    width: 1px;
+    background: rgba(0,0,0,0.2);
+    z-index: -1;
+} */
+
+/* Animation for the swinging spider */
+/* @keyframes spiderSwing {
+    0% { transform: rotate(8deg); }
+    50% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
+} */
+
+/* Hide on very small screens */
+/* @media (max-width: 480px) {
+    .spider-container {
+        display: none;
+    }
+} */
+
+/* Add these new classes */
+/* .spider-icon.dropping {
+    animation: spiderDrop 1s ease-in-out forwards;
+} */
+
+/* .spider-icon.cooldown {
+    animation: spiderSwing 4s ease-in-out infinite !important;
+} */
+
+/* @keyframes spiderDrop {
+    0% { top: 0; }
+    70% { top: 30px; }
+    85% { top: 25px; }
+    100% { top: 30px; }
+} */ */
