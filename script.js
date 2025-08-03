@@ -143,6 +143,27 @@ ${formObject['concerns'] || 'No specific concerns mentioned.'}
         });
     });
 
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            const isOpen = item.classList.contains('active');
+
+            // Close all other items for a cleaner experience
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+                otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            });
+
+            // If the clicked item wasn't already open, open it
+            if (!isOpen) {
+                item.classList.add('active');
+                question.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
     // Add entrance animations for cards when they come into view
     const observerOptions = {
         threshold: 0.1,
