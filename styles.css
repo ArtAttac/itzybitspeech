@@ -41,6 +41,8 @@ body {
     align-items: center;
     gap: 2rem;
     margin-bottom: 20px;
+    max-width: 900px;
+    margin: auto;
 }
 
 @media screen and (max-width: 768px) {
