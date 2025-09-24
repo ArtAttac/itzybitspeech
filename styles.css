@@ -133,7 +133,7 @@ body {
     margin-bottom: 1.5rem;
     max-width: 800px;
     margin-left: auto;
-    margin-right: 200px;
+    margin-right: -200px;
 }
 
 .cta-button {
@@ -991,7 +991,6 @@ html {
 
 
 .hero-photo {
-    position: absolute;
     right: 0;
     border-radius: 100px;
     transform: scaleX(-1);
@@ -1000,6 +999,11 @@ html {
 @media screen and (max-width: 850px) {
     .hero-text {
         gap: 0;
+        flex-direction: column;
+    }
+
+    .hero-text p {
+        margin-bottom: 0;
     }
 
     .hero-content p {
@@ -1008,7 +1012,8 @@ html {
 
     .hero-photo {
         position: relative;
-        width: 10rem;;
+        width: 10rem;
+        margin-bottom: 20px;
     }
 
 }
@@ -1078,4 +1083,3 @@ html {
     85% { top: 25px; }
     100% { top: 30px; }
 } */
-*/
